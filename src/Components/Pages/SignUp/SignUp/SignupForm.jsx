@@ -32,7 +32,7 @@ const SignupForm = ({ onSubmit, register, handleSubmit, errors }) => {
         <label>register as</label>
         <select
           defaultValue={"user"}
-          {...register("gender")}
+          {...register("type")}
           className="select select-bordered w-full max-w-xs"
         >
           <option value="user">customer</option>
@@ -64,6 +64,11 @@ const SignupForm = ({ onSubmit, register, handleSubmit, errors }) => {
         <span className="text-rose-600">
           Password must include least one Uppercase letter and one special
           character
+        </span>
+      )}
+      {errorCheck && errors.password?.type === "minLength" && (
+        <span className="text-rose-600">
+          Password must have at least 6 characters
         </span>
       )}
       <div className="form-control md:mt-3 lg:mt-6">

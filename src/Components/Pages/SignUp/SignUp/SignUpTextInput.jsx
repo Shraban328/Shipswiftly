@@ -17,6 +17,7 @@ const SignUpTextInput = ({
             {...register(`${registerName}`, {
               required: true,
               pattern: /^(?=.*?[A-Z])(?=.*?[#?!@$%^&*-])/,
+              minLength: 6,
             })}
             type="password"
             placeholder="password"

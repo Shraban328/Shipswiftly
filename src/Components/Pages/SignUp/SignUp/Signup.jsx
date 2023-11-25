@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../../Hooks/useAuth";
 import SignupForm from "./SignupForm";
+import { updateProfile } from "firebase/auth";
+import auth from "../../../../firebase/firebase.config";
 const Signup = () => {
   const {
     register,
@@ -10,9 +12,20 @@ const Signup = () => {
     formState: { errors },
   } = useForm();
   const { createUser } = useAuth();
-
+  const navigate = useNavigate();
   const onSubmit = async (data) => {
     console.log(data);
+    try {
+      const res = await createUser(data.email, data.password);
+      console.log(res.user);
+      await updateProfile(auth.currentUser, {
+        displayName: data.name,
+        photoURL: data.image,
+      });
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+    }
   };
   return (
     <>
