@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "icon": "https://i.ibb.co/Bg5CBC2/package.png",
+    "featureTitle": "Secure Packaging",
+    "description": "Offering reliable and secure packaging solutions to ensure items reach their destination in perfect condition."
+  },
+  {
+    "id": 2,
+    "icon": "https://i.ibb.co/8DQcKT0/calendar.png",
+    "featureTitle": "Customized Delivery Scheduling",
+    "description": "Allow customers to schedule deliveries based on their preferences, providing flexibility and convenience."
+  },
+  {
+    "id": 3,
+    "icon": "https://i.ibb.co/dQDxxd8/return-goods.png",
+    "featureTitle": "Returns Management",
+    "description": "Simplify the returns process, making it easy for customers to initiate returns and track the status of returned items."
+  }
+]
