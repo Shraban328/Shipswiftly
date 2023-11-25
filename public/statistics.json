@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "metricTitle": "Number of Parcel Booked",
+    "value": 1200
+  },
+  {
+    "id": 2,
+    "metricTitle": "Number of Parcel Delivered",
+    "value": 950
+  },
+  {
+    "id": 3,
+    "metricTitle": "Number of People Using Your App",
+    "value": 500
+  }
+]
