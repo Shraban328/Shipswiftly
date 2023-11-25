@@ -17,13 +17,13 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     console.log(data);
-    // try {
-    //   const result = await userSignIn(data.email, data.password);
-    //   navigate(from, { replace: true });
-    //   console.log(result);
-    // } catch (err) {
-    //   console.error(err);
-    // }
+    try {
+      const result = await userSignIn(data.email, data.password);
+      navigate(from, { replace: true });
+      console.log(result.user);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -32,9 +32,11 @@ const Login = () => {
         <title>ShipSwiftly | Login</title>
       </Helmet>
       <div className="hero min-h-screen bg-base-200">
-        <div className="hero-content flex-col lg:flex-row h-full ">
+        <div className="hero-content flex-col lg:flex-row h-full w-full">
           <div className="card w-full  max-w-sm shadow-2xl bg-base-100">
-            {" "}
+            <div className="flex justify-center mt-4">
+              <h1 className="text-4xl font-bold text-[#1874C1]">Login</h1>
+            </div>
             <LoginForm
               onSubmit={onSubmit}
               register={register}

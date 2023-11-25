@@ -1,10 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../../Hooks/useAuth";
 import SignupForm from "./SignupForm";
 import { updateProfile } from "firebase/auth";
 import auth from "../../../../firebase/firebase.config";
+import { Helmet } from "react-helmet-async";
 const Signup = () => {
   const {
     register,
@@ -30,12 +30,14 @@ const Signup = () => {
   return (
     <>
       <Helmet>
-        <title>ShipSwiftly | signup</title>
+        <title>ShipSwiftly | signup </title>
       </Helmet>
       <div className="hero min-h-screen bg-base-200">
-        <div className="hero-content flex-col lg:flex-row h-full ">
+        <div className="hero-content flex-col lg:flex-row h-full w-full ">
           <div className="card w-full  max-w-sm shadow-2xl bg-base-100">
-            {" "}
+            <div className="flex justify-center mt-4">
+              <h1 className="text-4xl font-bold text-[#1874C1]">SignUp</h1>
+            </div>
             <SignupForm
               onSubmit={onSubmit}
               register={register}
