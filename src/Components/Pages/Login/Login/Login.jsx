@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import LoginForm from "./LoginForm";
 import useAuth from "../../../../Hooks/useAuth";
+import toast from "react-hot-toast";
 const Login = () => {
   const {
     register,
@@ -22,7 +23,9 @@ const Login = () => {
       navigate(from, { replace: true });
       console.log(result.user);
     } catch (err) {
-      console.error(err);
+      console.error(err.message);
+      if (err.message === "Firebase: Error (auth/invalid-login-credentials).")
+        toast.error("Wrong Email Password");
     }
   };
 

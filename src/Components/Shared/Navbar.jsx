@@ -1,6 +1,11 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/logo_1.png";
+import useAuth from "../../Hooks/useAuth";
 const Navbar = () => {
+  const { user, userLogout } = useAuth();
+  const handleLogout = () => {
+    userLogout();
+  };
   const navLinks = (
     <div className="font-semibold flex  xl:flex-row md:w-52 space-x-3 text-white text-lg">
       <li>
@@ -74,12 +79,52 @@ const Navbar = () => {
           </div>
         </div>
         <div className="navbar-end">
-          <Link
-            to={"/login"}
-            className="text-lg font-bold p-3 rounded-lg  text-white"
-          >
-            Login
-          </Link>
+          {user && (
+            <div className="flex gap-2 items-center mr-2 ">
+              <div className="dropdown dropdown-end  ">
+                <label tabIndex={0} className="m-1">
+                  <div className="">
+                    <img
+                      src={user?.photoURL}
+                      className="rounded-full w-16 h-16 hover:cursor-pointer border-[3px] border-white"
+                    />
+                  </div>
+                </label>
+
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                >
+                  <h1 className="text-center font-semibold text-lg text-[#474747] border-b-2">
+                    {user.displayName}
+                  </h1>
+                  <div>
+                    <li className="text-[#474747] font-semibold  hover:bg-[#474747]  rounded-lg">
+                      <Link className="hover:text-gray-300" to={"/dashboard"}>
+                        Dashboard
+                      </Link>
+                    </li>
+                    <li className="text-[#474747] font-semibold  hover:bg-[#474747]  rounded-lg">
+                      <Link
+                        onClick={handleLogout}
+                        className="hover:text-gray-300"
+                      >
+                        Logout
+                      </Link>
+                    </li>
+                  </div>
+                </ul>
+              </div>
+            </div>
+          )}
+          {!user && (
+            <Link
+              to={"/login"}
+              className="text-lg font-bold p-3 rounded-lg  text-white"
+            >
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </div>
