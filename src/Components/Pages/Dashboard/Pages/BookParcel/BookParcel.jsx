@@ -1,20 +1,46 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../../../../Hooks/useAuth";
 import { useState } from "react";
+import useAxiosPublic from "../../../../../Hooks/useAxiosPublic";
 
 const BookParcel = () => {
   const { user } = useAuth();
-  const { register, handleSubmit } = useForm();
+  const axiosPublic = useAxiosPublic();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [price, setPrice] = useState("0");
-  const [errorMessage, setErrorMessage] = useState("");
+  //   const [errorMessage, setErrorMessage] = useState(0);
+
   const handleParcelWeight = (weight) => {
-    const parcelWeight = parseFloat(weight);
-    if (parcelWeight > 0 && parcelWeight <= 1) setPrice("50");
-    else if (parcelWeight > 1 && parcelWeight <= 2) setPrice("100");
-    else if (parcelWeight > 2) setPrice("200");
+    if (weight > 0 && weight <= 1) setPrice(50);
+    else if (weight > 1 && weight <= 2) setPrice(100);
+    else if (weight > 2) setPrice(200);
   };
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    // console.log(data);
+    try {
+      const parcelInfo = {
+        email: data.email,
+        name: data.name,
+        phoneNumber: data.phoneNumber,
+        parcelType: data.parcelType,
+        receiversName: data.receiversName,
+        receiversPhoneNumber: data.receiversPhoneNumber,
+        parcelWeight: data.parcelWeight,
+        deliveryAddress: data.deliveryAddress,
+        latitude: parseFloat(data.latitude),
+        longitude: parseFloat(data.longitude),
+        deliveryDate: data.deliveryDate,
+        price: price,
+      };
+      const res = await axiosPublic.post("/parcels", parcelInfo);
+      console.log(res.data);
+    } catch (err) {
+      console.error(err);
+    }
   };
   return (
     <div className="m-9">
@@ -62,7 +88,7 @@ const BookParcel = () => {
             </label>
             <input
               {...register("phoneNumber", { required: true })}
-              type="text"
+              type="number"
               placeholder="phone number"
               className="input input-bordered w-full"
             />
@@ -80,6 +106,11 @@ const BookParcel = () => {
               placeholder="parcel type"
               className="input input-bordered w-full"
             />
+            {errors.parcelType?.type === "pattern" && (
+              <p role="alert" className="text-rose-500">
+                Number Input is not accepted
+              </p>
+            )}
           </div>
         </div>
         {/* receivers name & receivers phone number */}
@@ -89,7 +120,7 @@ const BookParcel = () => {
               <span className="label-text">Receivers Name: </span>
             </label>
             <input
-              {...register("receiverName", { required: true })}
+              {...register("receiversName", { required: true })}
               type="text"
               placeholder="receiver name"
               className="input input-bordered w-full"
@@ -100,8 +131,8 @@ const BookParcel = () => {
               <span className="label-text">Receiver Phone Number</span>
             </label>
             <input
-              {...register("receiverPhoneNumber", { required: true })}
-              type="text"
+              {...register("receiversPhoneNumber", { required: true })}
+              type="number"
               placeholder="receiver phone number"
               className="input input-bordered w-full"
             />
@@ -114,10 +145,12 @@ const BookParcel = () => {
               <span className="label-text">Parcel weight: </span>
             </label>
             <input
-              {...register("parcelWeight", { required: true })}
+              {...register("parcelWeight", {
+                required: true,
+              })}
               onChange={(e) => handleParcelWeight(e.target.value)}
-              type="text"
-              placeholder="parcel weight"
+              type="number"
+              placeholder="parcel weight(kg)"
               className="input input-bordered w-full"
             />
           </div>
