@@ -5,6 +5,8 @@ import SignupForm from "./SignupForm";
 import { updateProfile } from "firebase/auth";
 import auth from "../../../../firebase/firebase.config";
 import { Helmet } from "react-helmet-async";
+import useAxiosPublic from "../../../../Hooks/useAxiosPublic";
+import SocialLogin from "../../../Shared/socialLogin";
 const Signup = () => {
   const {
     register,
@@ -13,6 +15,8 @@ const Signup = () => {
   } = useForm();
   const { createUser } = useAuth();
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
+  const from = location.state?.from?.pathname || "/";
   const onSubmit = async (data) => {
     console.log(data);
     try {
@@ -22,7 +26,16 @@ const Signup = () => {
         displayName: data.name,
         photoURL: data.image,
       });
-      navigate("/");
+      const userInfo = {
+        email: data.email,
+        name: data.name,
+        image: data.image,
+        type: data.type,
+      };
+      const axiosRes = await axiosPublic.post("/users", userInfo);
+      console.log(axiosRes.data);
+
+      navigate(from, { replace: true });
     } catch (err) {
       console.error(err);
     }
@@ -51,6 +64,10 @@ const Signup = () => {
                   go to Login
                 </Link>
               </h4>
+            </div>
+            <div className="divider">OR</div>
+            <div>
+              <SocialLogin navigate={navigate} from={from} />
             </div>
           </div>
         </div>
