@@ -3,9 +3,13 @@ import DashboardSidebar from "../Components/Pages/Dashboard/DashboardSidebar/Das
 
 const DashboardLayout = () => {
   return (
-    <div className="flex">
-      <DashboardSidebar />
-      <Outlet />
+    <div className="flex max-w-screen-2xl mx-auto">
+      <div className="w-1/5">
+        <DashboardSidebar />
+      </div>
+      <div className="w-4/5">
+        <Outlet />
+      </div>
     </div>
   );
 };
