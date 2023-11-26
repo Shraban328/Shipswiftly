@@ -6,6 +6,7 @@ import Signup from "../Components/Pages/SignUp/SignUp/Signup";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import MyProfile from "../Components/Pages/Dashboard/Pages/MyProfile/MyProfile";
 import PrivateRoute from "./PrivateRoute";
+import BookParcel from "../Components/Pages/Dashboard/Pages/BookParcel/BookParcel";
 
 const Routes = createBrowserRouter([
   {
@@ -36,7 +37,19 @@ const Routes = createBrowserRouter([
     children: [
       {
         path: "myProfile",
-        element: <MyProfile />,
+        element: (
+          <PrivateRoute>
+            <MyProfile />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "bookParcel",
+        element: (
+          <PrivateRoute>
+            <BookParcel />
+          </PrivateRoute>
+        ),
       },
     ],
   },

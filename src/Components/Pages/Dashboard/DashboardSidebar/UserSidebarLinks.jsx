@@ -33,7 +33,7 @@ const UserSidebarLinks = () => {
           className={({ isActive }) =>
             isActive ? " bg-[#050404] " : "inactive"
           }
-          to={"/dashboard/parcels"}
+          to={"/dashboard/bookParcel"}
         >
           <FiPackage className="text-2xl" />
           Book a parcel
