@@ -23,7 +23,7 @@ const Navbar = () => {
           className={({ isActive }) =>
             isActive ? "text-yellow-500" : "inactive"
           }
-          to={"/dashboard"}
+          to={"/dashboard/myProfile"}
         >
           Dashboard
         </NavLink>
@@ -100,7 +100,10 @@ const Navbar = () => {
                   </h1>
                   <div>
                     <li className="text-[#474747] font-semibold  hover:bg-[#474747]  rounded-lg">
-                      <Link className="hover:text-gray-300" to={"/dashboard"}>
+                      <Link
+                        className="hover:text-gray-300"
+                        to={"/dashboard/myProfile"}
+                      >
                         Dashboard
                       </Link>
                     </li>

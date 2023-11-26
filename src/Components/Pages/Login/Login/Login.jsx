@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import LoginForm from "./LoginForm";
 import useAuth from "../../../../Hooks/useAuth";
 import toast from "react-hot-toast";
+import SocialLogin from "../../../Shared/socialLogin";
 const Login = () => {
   const {
     register,
@@ -53,6 +54,10 @@ const Login = () => {
                   Create a New Account
                 </Link>
               </h4>
+            </div>
+            <div className="divider">OR</div>
+            <div>
+              <SocialLogin navigate={navigate} from={from} />
             </div>
           </div>
         </div>
