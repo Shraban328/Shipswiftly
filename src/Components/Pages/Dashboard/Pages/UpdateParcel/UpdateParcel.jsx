@@ -10,17 +10,38 @@ const UpdateParcel = () => {
   const { id } = useParams();
   const [parcel, setParcel] = useState({});
   const [price, setPrice] = useState("");
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
   useEffect(() => {
     axiosSecure.get(`/parcels/updateParcel/${id}`).then((res) => {
       setParcel(res.data);
       setPrice("" + res.data.price);
     });
   }, [id, axiosSecure]);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+
+  useEffect(() => {
+    const defaultValues = {
+      email: parcel.email,
+      name: parcel.name,
+      phoneNumber: parcel.phoneNumber,
+      parcelType: parcel.parcelType,
+      receiversName: parcel.receiversName,
+      receiversPhoneNumber: parcel.receiversPhoneNumber,
+      parcelWeight: parseFloat(parcel.parcelWeight),
+      deliveryAddress: parcel.deliveryAddress,
+      latitude: parseFloat(parcel.latitude),
+      longitude: parseFloat(parcel.longitude),
+      deliveryDate: parcel.deliveryDate,
+      price: price,
+      status: "pending",
+    };
+    reset({ ...defaultValues });
+  }, [parcel, price, reset]);
 
   //   const [errorMessage, setErrorMessage] = useState(0);
 
@@ -31,27 +52,28 @@ const UpdateParcel = () => {
   };
   const onSubmit = async (data) => {
     console.log(data);
-    // try {
-    //   const parcelInfo = {
-    //     email: data.email,
-    //     name: data.name,
-    //     phoneNumber: data.phoneNumber,
-    //     parcelType: data.parcelType,
-    //     receiversName: data.receiversName,
-    //     receiversPhoneNumber: data.receiversPhoneNumber,
-    //     parcelWeight: parseFloat(data.parcelWeight),
-    //     deliveryAddress: data.deliveryAddress,
-    //     latitude: parseFloat(data.latitude),
-    //     longitude: parseFloat(data.longitude),
-    //     deliveryDate: data.deliveryDate,
-    //     price: price,
-    //     status: "pending",
-    //   };
-    //   const res = await axiosPublic.post("/parcels", parcelInfo);
-    //   console.log(res.data);
-    // } catch (err) {
-    //   console.error(err);
-    // }
+    try {
+      const parcelInfo = {
+        email: data.email,
+        name: data.name,
+        phoneNumber: data.phoneNumber,
+        parcelType: data.parcelType,
+        receiversName: data.receiversName,
+        receiversPhoneNumber: data.receiversPhoneNumber,
+        parcelWeight: parseFloat(data.parcelWeight),
+        deliveryAddress: data.deliveryAddress,
+        latitude: parseFloat(data.latitude),
+        longitude: parseFloat(data.longitude),
+        deliveryDate: data.deliveryDate,
+        price: parseFloat(price),
+        status: "pending",
+      };
+      console.log(parcelInfo);
+      // const res = await axiosPublic.post("/parcels", parcelInfo);
+      // console.log(res.data);
+    } catch (err) {
+      console.error(err);
+    }
   };
   return (
     <div className="m-9">
