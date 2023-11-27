@@ -1,31 +1,62 @@
-import useAuth from "../../../../../Hooks/useAuth";
-
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import useAxiosSecure from "../../../../../Hooks/useAxiosSecure";
+import useGetUser from "../../../../../Hooks/useGetUser";
+import toast from "react-hot-toast";
 const MyProfile = () => {
-  const { user } = useAuth();
-  console.log(user);
+  const [userDetails, refetch] = useGetUser();
+  const { register, handleSubmit } = useForm();
+  const img_upload_key = "b0116c0e8333a1aec17e29be2666ed56";
+  const axiosSecure = useAxiosSecure();
+  const onSubmit = async (data) => {
+    console.log(data.image[0]);
+    try {
+      toast("Uploading!");
+      let image = new FormData();
+      image.set("key", img_upload_key);
+      image.append("image", data.image[0]);
+      const res = await axios.post("https://api.imgbb.com/1/upload", image);
+
+      const updatedImage = { newImage: res.data.data.display_url };
+      const imgRes = await axiosSecure.patch(
+        `/users/${userDetails.email}`,
+        updatedImage
+      );
+      console.log("image response: ", imgRes.data);
+      refetch();
+      toast.success("Successfully Updated Profile Image!");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div className="ml-9 mt-9 h-[70vh] w-full border rounded-lg">
       <div className="h-1/3 w-full bg-[#1874C1] border-b-[5px] border-[#1890c1] relative">
         <div className="absolute -bottom-16 left-14 flex items-center gap-2">
           <img
-            className="w-40  border-[4px] border-[#1890c1] rounded-full"
-            src={user?.photoURL}
+            className="w-40 h-40  border-[4px] border-white rounded-full"
+            src={userDetails?.image}
             alt=""
           />
           <div className="mt-6 space-y-2">
             <h1 className="text-3xl font-bold text-white">
-              {user?.displayName}
+              {userDetails?.name}
             </h1>
-            <h1 className=" font-bold">{user?.email}</h1>
+            <h1 className=" font-bold">{userDetails?.email}</h1>
           </div>
         </div>
-        <div className=" absolute right-2 -bottom-16 flex gap-4">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className=" absolute right-2 -bottom-16 flex gap-4"
+        >
           <input
+            {...register("image")}
             type="file"
             className="file-input file-input-bordered file-input-primary w-full max-w-xs"
           />
           <button className="btn btn-primary">update Profile</button>
-        </div>
+        </form>
       </div>
     </div>
   );

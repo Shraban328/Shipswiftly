@@ -4,18 +4,21 @@ import HeadingTitle from "../../../../Shared/HeadingTitle";
 import useParcels from "../../../../../Hooks/useParcels";
 import { useEffect, useState } from "react";
 const MyParcels = () => {
+  // need to ask question on maximum update dept exceeded error
   const [parcels] = useParcels();
-  const [filteredParcels, setFilteredParcels] = useState([]);
+  const [filteredParcels, setFilteredParcels] = useState(parcels);
   const [filterText, setFilterText] = useState("");
   useEffect(() => {
-    setFilteredParcels(parcels);
     if (filterText) {
       const remainingParcels = parcels.filter(
         (parcel) => parcel.status === filterText
       );
       setFilteredParcels(remainingParcels);
+    } else {
+      setFilteredParcels(parcels);
     }
   }, [parcels, filterText]);
+
   return (
     <div className="overflow-x-auto bg-base-200 ml-9 mt-9">
       <div className="flex items-center justify-evenly mt-5">
