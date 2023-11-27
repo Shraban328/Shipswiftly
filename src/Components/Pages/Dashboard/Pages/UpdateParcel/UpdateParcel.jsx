@@ -54,6 +54,7 @@ const UpdateParcel = () => {
     console.log(data);
     try {
       const parcelInfo = {
+        id: id,
         email: data.email,
         name: data.name,
         phoneNumber: data.phoneNumber,
@@ -68,9 +69,9 @@ const UpdateParcel = () => {
         price: parseFloat(price),
         status: "pending",
       };
-      console.log(parcelInfo);
-      // const res = await axiosPublic.post("/parcels", parcelInfo);
-      // console.log(res.data);
+      // console.log(parcelInfo);
+      const res = await axiosSecure.put("/parcels", parcelInfo);
+      console.log(res.data);
     } catch (err) {
       console.error(err);
     }
