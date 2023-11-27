@@ -20,7 +20,7 @@ const UserSidebarLinks = () => {
       <li className="text-lg font-medium">
         <NavLink
           className={({ isActive }) =>
-            isActive ? " bg-[#050404] " : "inactive"
+            isActive ? " bg-[#474747] " : "inactive"
           }
           to={"/dashboard/myParcels"}
         >
@@ -31,7 +31,7 @@ const UserSidebarLinks = () => {
       <li className="text-lg font-medium">
         <NavLink
           className={({ isActive }) =>
-            isActive ? " bg-[#050404] " : "inactive"
+            isActive ? " bg-[#474747] " : "inactive"
           }
           to={"/dashboard/bookParcel"}
         >

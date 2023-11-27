@@ -1,18 +1,27 @@
+import HeadingTitle from "../../../../Shared/HeadingTitle";
 import { useForm } from "react-hook-form";
 import useAuth from "../../../../../Hooks/useAuth";
-import { useState } from "react";
-import useAxiosPublic from "../../../../../Hooks/useAxiosPublic";
-import HeadingTitle from "../../../../Shared/HeadingTitle";
-
-const BookParcel = () => {
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import useAxiosSecure from "../../../../../Hooks/useAxiosSecure";
+const UpdateParcel = () => {
   const { user } = useAuth();
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
+  const { id } = useParams();
+  const [parcel, setParcel] = useState({});
+  const [price, setPrice] = useState("");
+  useEffect(() => {
+    axiosSecure.get(`/parcels/updateParcel/${id}`).then((res) => {
+      setParcel(res.data);
+      setPrice("" + res.data.price);
+    });
+  }, [id, axiosSecure]);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [price, setPrice] = useState("0");
+
   //   const [errorMessage, setErrorMessage] = useState(0);
 
   const handleParcelWeight = (weight) => {
@@ -21,28 +30,28 @@ const BookParcel = () => {
     else if (weight > 2) setPrice(200);
   };
   const onSubmit = async (data) => {
-    // console.log(data);
-    try {
-      const parcelInfo = {
-        email: data.email,
-        name: data.name,
-        phoneNumber: data.phoneNumber,
-        parcelType: data.parcelType,
-        receiversName: data.receiversName,
-        receiversPhoneNumber: data.receiversPhoneNumber,
-        parcelWeight: parseFloat(data.parcelWeight),
-        deliveryAddress: data.deliveryAddress,
-        latitude: parseFloat(data.latitude),
-        longitude: parseFloat(data.longitude),
-        deliveryDate: data.deliveryDate,
-        price: price,
-        status: "pending",
-      };
-      const res = await axiosPublic.post("/parcels", parcelInfo);
-      console.log(res.data);
-    } catch (err) {
-      console.error(err);
-    }
+    console.log(data);
+    // try {
+    //   const parcelInfo = {
+    //     email: data.email,
+    //     name: data.name,
+    //     phoneNumber: data.phoneNumber,
+    //     parcelType: data.parcelType,
+    //     receiversName: data.receiversName,
+    //     receiversPhoneNumber: data.receiversPhoneNumber,
+    //     parcelWeight: parseFloat(data.parcelWeight),
+    //     deliveryAddress: data.deliveryAddress,
+    //     latitude: parseFloat(data.latitude),
+    //     longitude: parseFloat(data.longitude),
+    //     deliveryDate: data.deliveryDate,
+    //     price: price,
+    //     status: "pending",
+    //   };
+    //   const res = await axiosPublic.post("/parcels", parcelInfo);
+    //   console.log(res.data);
+    // } catch (err) {
+    //   console.error(err);
+    // }
   };
   return (
     <div className="m-9">
@@ -50,7 +59,7 @@ const BookParcel = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="bg-[#F3F3F3] rounded-lg p-9"
       >
-        <HeadingTitle title={"Book Your Parcel"} />
+        <HeadingTitle title={"Update Parcel"} />
         {/* name and email */}
         <div className="flex items-center gap-6">
           <div className="w-1/2">
@@ -58,7 +67,7 @@ const BookParcel = () => {
               <span className="label-text">Name</span>
             </label>
             <input
-              {...register("name", { required: true })}
+              {...register("name")}
               type="text"
               defaultValue={user.displayName}
               className="input input-bordered w-full"
@@ -70,7 +79,7 @@ const BookParcel = () => {
               <span className="label-text">Email</span>
             </label>
             <input
-              {...register("email", { required: true })}
+              {...register("email")}
               type="text"
               defaultValue={user.email}
               className="input input-bordered w-full"
@@ -85,9 +94,9 @@ const BookParcel = () => {
               <span className="label-text">Phone Number</span>
             </label>
             <input
-              {...register("phoneNumber", { required: true })}
+              {...register("phoneNumber")}
               type="number"
-              placeholder="phone number"
+              defaultValue={parcel?.phoneNumber}
               className="input input-bordered w-full"
             />
           </div>
@@ -97,11 +106,10 @@ const BookParcel = () => {
             </label>
             <input
               {...register("parcelType", {
-                required: true,
                 pattern: /^[^0-9()]+$/,
               })}
               type="text"
-              placeholder="parcel type"
+              defaultValue={parcel?.parcelType}
               className="input input-bordered w-full"
             />
             {errors.parcelType?.type === "pattern" && (
@@ -118,9 +126,9 @@ const BookParcel = () => {
               <span className="label-text">Receivers Name: </span>
             </label>
             <input
-              {...register("receiversName", { required: true })}
+              {...register("receiversName")}
               type="text"
-              placeholder="receiver name"
+              defaultValue={parcel?.receiversName}
               className="input input-bordered w-full"
             />
           </div>
@@ -129,9 +137,9 @@ const BookParcel = () => {
               <span className="label-text">Receiver Phone Number</span>
             </label>
             <input
-              {...register("receiversPhoneNumber", { required: true })}
+              {...register("receiversPhoneNumber")}
               type="number"
-              placeholder="receiver phone number"
+              defaultValue={parcel?.receiversPhoneNumber}
               className="input input-bordered w-full"
             />
           </div>
@@ -143,12 +151,10 @@ const BookParcel = () => {
               <span className="label-text">Parcel weight: </span>
             </label>
             <input
-              {...register("parcelWeight", {
-                required: true,
-              })}
+              {...register("parcelWeight")}
               onChange={(e) => handleParcelWeight(e.target.value)}
               type="text"
-              placeholder="parcel weight(kg)"
+              defaultValue={parcel?.parcelWeight}
               className="input input-bordered w-full"
             />
           </div>
@@ -157,9 +163,10 @@ const BookParcel = () => {
               <span className="label-text">Delivery Address</span>
             </label>
             <input
-              {...register("deliveryAddress", { required: true })}
+              {...register("deliveryAddress")}
               type="text"
               placeholder="delivery address"
+              defaultValue={parcel?.deliveryAddress}
               className="input input-bordered w-full"
             />
           </div>
@@ -173,17 +180,17 @@ const BookParcel = () => {
         <div className="flex items-center gap-6">
           <div className="w-1/2">
             <input
-              {...register("latitude", { required: true })}
+              {...register("latitude")}
               type="text"
-              placeholder="latitude"
+              defaultValue={parcel?.latitude}
               className="input input-bordered w-full"
             />
           </div>
           <div className="form-control w-1/2">
             <input
-              {...register("longitude", { required: true })}
+              {...register("longitude")}
               type="text"
-              placeholder="longitude"
+              defaultValue={parcel?.longitude}
               className="input input-bordered w-full"
             />
           </div>
@@ -193,20 +200,22 @@ const BookParcel = () => {
             <span className="label-text">Requested Delivery Date:</span>
           </label>
           <input
-            {...register("deliveryDate", { required: true })}
+            {...register("deliveryDate")}
+            defaultValue={parcel?.deliveryDate}
             type="date"
             className="input input-bordered w-full"
           />
         </div>
         <div className="mt-5 flex items-center justify-between">
           <h1 className="text-lg font-medium">Price is: {price}$</h1>
-          <button className="btn btn-primary bg-[#1874C1] hover:bg-[#1874C1] border-none text-white">
-            Submit
-          </button>
+          <input
+            type="submit"
+            className="btn btn-primary bg-[#1874C1] hover:bg-[#1874C1] border-none text-white"
+          />
         </div>
       </form>
     </div>
   );
 };
 
-export default BookParcel;
+export default UpdateParcel;

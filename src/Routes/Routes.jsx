@@ -7,6 +7,8 @@ import DashboardLayout from "../Layouts/DashboardLayout";
 import MyProfile from "../Components/Pages/Dashboard/Pages/MyProfile/MyProfile";
 import PrivateRoute from "./PrivateRoute";
 import BookParcel from "../Components/Pages/Dashboard/Pages/BookParcel/BookParcel";
+import MyParcels from "../Components/Pages/Dashboard/Pages/MyParcels/MyParcels";
+import UpdateParcel from "../Components/Pages/Dashboard/Pages/UpdateParcel/UpdateParcel";
 
 const Routes = createBrowserRouter([
   {
@@ -48,6 +50,22 @@ const Routes = createBrowserRouter([
         element: (
           <PrivateRoute>
             <BookParcel />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "myParcels",
+        element: (
+          <PrivateRoute>
+            <MyParcels />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "updateParcel/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateParcel />
           </PrivateRoute>
         ),
       },
