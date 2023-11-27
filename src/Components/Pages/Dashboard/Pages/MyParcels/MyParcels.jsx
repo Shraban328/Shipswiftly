@@ -18,12 +18,9 @@ const MyParcels = () => {
   }, [parcels, filterText]);
   return (
     <div className="overflow-x-auto bg-base-200 ml-9 mt-9">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-evenly mt-5">
         <HeadingTitle title={"Your Parcels"} />
         <div className="form-control w-full max-w-xs">
-          <label className="label">
-            <span className="label-text">Pick the best fantasy franchise</span>
-          </label>
           <select
             defaultValue={""}
             className="select select-bordered focus:outline-1 focus:outline-offset-1"
