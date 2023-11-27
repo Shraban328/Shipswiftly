@@ -9,7 +9,11 @@ const ParcelTableRow = ({ parcel, idx }) => {
       <td>{parcel.deliveryDate}</td>
       <td>{parcel.approximateDeiveryDate || "pending"}</td>
       <td>{parcel.deliveryManId || "pending"}</td>
-      <td>{parcel.status}</td>
+      <td>
+        <p className={`${parcel.status == "cancel" ? "text-rose-500" : ""}`}>
+          {parcel.status == "cancel" ? "canceled" : parcel.status}
+        </p>
+      </td>
       <td>
         <Link to={`/dashboard/updateParcel/${parcel._id}`}>
           <DefaultButton text={"update"} bgColor={"#1874C1"} />

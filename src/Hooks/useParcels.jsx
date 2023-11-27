@@ -12,7 +12,6 @@ const useParcels = () => {
       return res.data;
     },
   });
-  console.log(parcels);
   return [parcels, refetch];
 };
 
