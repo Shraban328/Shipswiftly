@@ -4,6 +4,8 @@ import useAuth from "../../../../../Hooks/useAuth";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useAxiosSecure from "../../../../../Hooks/useAxiosSecure";
+import DefaultButton from "../../../../Shared/DefaultButton";
+import Swal from "sweetalert2";
 const UpdateParcel = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
@@ -76,8 +78,41 @@ const UpdateParcel = () => {
       console.error(err);
     }
   };
+
+  const handleCancelParcel = async () => {
+    try {
+      if (parcel?.status == "pending") {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Cancel Delivery",
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            const updatedStatus = {
+              id: id,
+              status: "cancel",
+            };
+            const res = await axiosSecure.patch("/parcels", updatedStatus);
+            console.log(res.data);
+            Swal.fire(
+              "Canceled!",
+              "Your Parcel Delivery Has Been SuccessFully Canceled.",
+              "success"
+            );
+          }
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
-    <div className="m-9">
+    <div className="m-9 relative">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="bg-[#F3F3F3] rounded-lg p-9"
@@ -233,10 +268,17 @@ const UpdateParcel = () => {
           <h1 className="text-lg font-medium">Price is: {price}$</h1>
           <input
             type="submit"
+            disabled={parcel?.status === "pending" ? false : true}
             className="btn btn-primary bg-[#1874C1] hover:bg-[#1874C1] border-none text-white"
           />
         </div>
       </form>
+      <div onClick={handleCancelParcel} className="absolute bottom-9 right-32">
+        <DefaultButton
+          text={`${parcel?.status === "pending" ? "cancel" : "canceled"}`}
+          bgColor={"#d83a00"}
+        />
+      </div>
     </div>
   );
 };

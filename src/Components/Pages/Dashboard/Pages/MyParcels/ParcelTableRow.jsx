@@ -2,14 +2,6 @@ import PropTypes from "prop-types";
 import DefaultButton from "../../../../Shared/DefaultButton";
 import { Link } from "react-router-dom";
 const ParcelTableRow = ({ parcel, idx }) => {
-  // <th>Parcel Type</th>
-  // <th>Requested Delivery</th>
-  // <th>Approximate Delivery</th>
-  // <th>Delivery Men ID</th>
-  // <th>Booking Status</th>
-  // <th>Update</th>
-  // <th>Review</th>
-  // <th>Pay</th>
   return (
     <tr className="text-lg hover:bg-slate-300">
       <th>{idx + 1}</th>
