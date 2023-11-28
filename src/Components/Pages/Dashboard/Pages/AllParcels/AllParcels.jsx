@@ -15,9 +15,8 @@ const AllParcels = () => {
   });
   return (
     <div className="ml-9 mt-9">
-      <h1>total parcels: {parcels.length}</h1>
       <div className="overflow-x-auto bg-base-200 ml-9 mt-9">
-        <HeadingTitle title={"Your Parcels"} />
+        <HeadingTitle title={"All Parcels"} />
         <table className="table">
           {/* head */}
           <AllParcelsTableHeading />
