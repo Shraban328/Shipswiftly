@@ -3,6 +3,7 @@ import useAuth from "../../../../../Hooks/useAuth";
 import { useState } from "react";
 import useAxiosPublic from "../../../../../Hooks/useAxiosPublic";
 import HeadingTitle from "../../../../Shared/HeadingTitle";
+import moment from "moment";
 
 const BookParcel = () => {
   const { user } = useAuth();
@@ -35,6 +36,7 @@ const BookParcel = () => {
         latitude: parseFloat(data.latitude),
         longitude: parseFloat(data.longitude),
         deliveryDate: data.deliveryDate,
+        bookingDate: moment().format("YYYY-MM-DD"),
         price: price,
         status: "pending",
       };

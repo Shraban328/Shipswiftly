@@ -10,6 +10,7 @@ import BookParcel from "../Components/Pages/Dashboard/Pages/BookParcel/BookParce
 import MyParcels from "../Components/Pages/Dashboard/Pages/MyParcels/MyParcels";
 import UpdateParcel from "../Components/Pages/Dashboard/Pages/UpdateParcel/UpdateParcel";
 import AdminHome from "../Components/Pages/Dashboard/Pages/AdminHome/AdminHome";
+import AllParcels from "../Components/Pages/Dashboard/Pages/AllParcels/AllParcels";
 
 const Routes = createBrowserRouter([
   {
@@ -44,6 +45,14 @@ const Routes = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AdminHome />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "allParcels",
+        element: (
+          <PrivateRoute>
+            <AllParcels />
           </PrivateRoute>
         ),
       },
