@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 const MyProfile = () => {
   const [userDetails, refetch] = useGetUser();
   const { register, handleSubmit } = useForm();
-  const img_upload_key = "b0116c0e8333a1aec17e29be2666ed56";
+  const img_upload_key = import.meta.env.VITE_IMG_UPLOAD_KEY;
   const axiosSecure = useAxiosSecure();
   const onSubmit = async (data) => {
     console.log(data.image[0]);
@@ -55,7 +55,9 @@ const MyProfile = () => {
             type="file"
             className="file-input file-input-bordered file-input-primary w-full max-w-xs"
           />
-          <button className="btn btn-primary">update Profile</button>
+          <button className="btn btn-primary bg-[#1874C1] hover:bg-[#1874C1] border-none">
+            Update Profile Image
+          </button>
         </form>
       </div>
     </div>

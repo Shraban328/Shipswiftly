@@ -4,9 +4,9 @@ import { CiLogout } from "react-icons/ci";
 import DeliveryMenSidebarLinks from "./DeliveryMenSidebarLinks";
 import AdminSidebarLinks from "./AdminSidebarLinks";
 const DashboardSidebar = () => {
-  const user = true;
+  const user = false;
   const deliverymen = false;
-  const admin = false;
+  const admin = true;
   return (
     <div className="bg-[#1874C1] h-[50vh] rounded-lg text-white p-3 relative">
       {user && <UserSidebarLinks />}

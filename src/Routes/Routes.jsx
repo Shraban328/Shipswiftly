@@ -9,6 +9,7 @@ import PrivateRoute from "./PrivateRoute";
 import BookParcel from "../Components/Pages/Dashboard/Pages/BookParcel/BookParcel";
 import MyParcels from "../Components/Pages/Dashboard/Pages/MyParcels/MyParcels";
 import UpdateParcel from "../Components/Pages/Dashboard/Pages/UpdateParcel/UpdateParcel";
+import AdminHome from "../Components/Pages/Dashboard/Pages/AdminHome/AdminHome";
 
 const Routes = createBrowserRouter([
   {
@@ -37,6 +38,16 @@ const Routes = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      // admin routes
+      {
+        path: "adminHome",
+        element: (
+          <PrivateRoute>
+            <AdminHome />
+          </PrivateRoute>
+        ),
+      },
+      // user routes
       {
         path: "myProfile",
         element: (

@@ -3,9 +3,21 @@ import { TbPackages } from "react-icons/tb";
 import { PiUsersThreeFill } from "react-icons/pi";
 import { MdDeliveryDining } from "react-icons/md";
 import { IoStatsChart } from "react-icons/io5";
+import { IoHome } from "react-icons/io5";
 const AdminSidebarLinks = () => {
   return (
     <ul className="menu">
+      <li className="text-lg font-medium">
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? " bg-[#474747] " : "inactive"
+          }
+          to={"/dashboard/adminHome"}
+        >
+          <IoHome className="text-2xl" />
+          Admin Home
+        </NavLink>
+      </li>
       <li className="text-lg font-medium">
         <NavLink
           className={({ isActive }) =>
