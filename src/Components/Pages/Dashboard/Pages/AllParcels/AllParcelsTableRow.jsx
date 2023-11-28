@@ -40,7 +40,19 @@ const AllParcelsTableRow = ({ parcel, idx }) => {
       <td>{parcel.deliveryDate || "pending"}</td>
       <td>${parcel.price || "pending"}</td>
       <td>
-        <span>{parcel.status}</span>
+        <span
+          style={{
+            color: `${
+              (parcel?.status === "pending" && "#eab308") ||
+              (parcel?.status === "cancel" && "#f43f5e") ||
+              (parcel?.status === "on the way" && "#22c55e") ||
+              (parcel?.status === "delivered" && "#3b82f6") ||
+              (parcel?.status === "returned" && "#6b7280")
+            }`,
+          }}
+        >
+          {parcel.status === "cancel" ? "canceled" : parcel.status}
+        </span>
       </td>
       <td>
         <p onClick={handleOpen}>
