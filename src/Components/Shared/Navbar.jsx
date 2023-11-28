@@ -1,8 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/logo_1.png";
 import useAuth from "../../Hooks/useAuth";
+import useGetUser from "../../Hooks/useGetUser";
 const Navbar = () => {
   const { user, userLogout } = useAuth();
+  const [myUser] = useGetUser();
   const handleLogout = () => {
     userLogout();
   };
@@ -85,7 +87,7 @@ const Navbar = () => {
                 <label tabIndex={0} className="m-1">
                   <div className="">
                     <img
-                      src={user?.photoURL}
+                      src={myUser?.image}
                       className="rounded-full w-16 h-16 hover:cursor-pointer border-[3px] border-white"
                     />
                   </div>

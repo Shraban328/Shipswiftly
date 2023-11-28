@@ -3,7 +3,9 @@ import DefaultButton from "../../../../Shared/DefaultButton";
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import HeadingTitle from "../../../../Shared/HeadingTitle";
+import ModalForm from "./ModalForm";
+import useAxiosSecure from "../../../../../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 const AllParcelsTableRow = ({ parcel, idx }) => {
   // using material ui
   const style = {
@@ -17,9 +19,18 @@ const AllParcelsTableRow = ({ parcel, idx }) => {
     p: 4,
     borderRadius: "0.5rem",
   };
+  const axiosSecure = useAxiosSecure();
+  const { data: deliveryMens = [], refetch } = useQuery({
+    queryKey: ["delivery_mens"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/deliveryMens");
+      return res.data;
+    },
+  });
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   return (
     <tr className="text-lg hover:bg-slate-300">
       <th>{idx + 1}</th>
@@ -28,7 +39,9 @@ const AllParcelsTableRow = ({ parcel, idx }) => {
       <td>{parcel.bookingDate || parcel.deliveryDate}</td>
       <td>{parcel.deliveryDate || "pending"}</td>
       <td>${parcel.price || "pending"}</td>
-      <td>{parcel.status}</td>
+      <td>
+        <span>{parcel.status}</span>
+      </td>
       <td>
         <p onClick={handleOpen}>
           <DefaultButton text={"update"} bgColor={"#1874C1"} />
@@ -40,26 +53,11 @@ const AllParcelsTableRow = ({ parcel, idx }) => {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <form className="border rounded-lg p-9">
-              <HeadingTitle title={"Select DeliveryMen"} size="text-2xl" />
-              <select defaultValue={""} className="select w-full max-w-xs">
-                <option disabled>Select DeliveryMen</option>
-                <option>alu</option>
-                <option>kodom</option>
-                <option>jogodish</option>
-                <option>Lisa</option>
-                <option>Maggie</option>
-              </select>
-              <div className="gap-6">
-                <label className="label">
-                  <span className="label-text">Approximate Delivery Date:</span>
-                </label>
-                <input type="date" className="input input-bordered w-full" />
-              </div>
-              <div className="mt-4">
-                <DefaultButton text={"Assign"} bgColor={"#1874C1"} />
-              </div>
-            </form>
+            <ModalForm
+              deliveryMens={deliveryMens}
+              parcelId={parcel._id}
+              refetch={refetch}
+            />
           </Box>
         </Modal>
       </td>
