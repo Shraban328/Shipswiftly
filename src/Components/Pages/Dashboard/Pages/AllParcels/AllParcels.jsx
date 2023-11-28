@@ -3,9 +3,11 @@ import useAxiosSecure from "../../../../../Hooks/useAxiosSecure";
 import HeadingTitle from "../../../../Shared/HeadingTitle";
 import AllParcelsTableHeading from "./AllParcelsTableHeading";
 import AllParcelsTableRow from "./AllParcelsTableRow";
+import useDeliveryMens from "../../../../../Hooks/useDeliveryMens";
 
 const AllParcels = () => {
   const axiosSecure = useAxiosSecure();
+  const [deliveryMens, refetch] = useDeliveryMens();
   const { data: parcels = [] } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
@@ -23,7 +25,13 @@ const AllParcels = () => {
           <tbody>
             {/* row  */}
             {parcels.map((parcel, idx) => (
-              <AllParcelsTableRow key={parcel._id} idx={idx} parcel={parcel} />
+              <AllParcelsTableRow
+                key={parcel._id}
+                idx={idx}
+                parcel={parcel}
+                deliveryMens={deliveryMens}
+                refetch={refetch}
+              />
             ))}
           </tbody>
         </table>

@@ -4,9 +4,7 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import ModalForm from "./ModalForm";
-import useAxiosSecure from "../../../../../Hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
-const AllParcelsTableRow = ({ parcel, idx }) => {
+const AllParcelsTableRow = ({ parcel, idx, deliveryMens, refetch }) => {
   // using material ui
   const style = {
     position: "absolute",
@@ -19,14 +17,6 @@ const AllParcelsTableRow = ({ parcel, idx }) => {
     p: 4,
     borderRadius: "0.5rem",
   };
-  const axiosSecure = useAxiosSecure();
-  const { data: deliveryMens = [], refetch } = useQuery({
-    queryKey: ["delivery_mens"],
-    queryFn: async () => {
-      const res = await axiosSecure.get("/deliveryMens");
-      return res.data;
-    },
-  });
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -81,4 +71,6 @@ export default AllParcelsTableRow;
 AllParcelsTableRow.propTypes = {
   parcel: PropTypes.object.isRequired,
   idx: PropTypes.number,
+  deliveryMens: PropTypes.array,
+  refetch: PropTypes.func,
 };

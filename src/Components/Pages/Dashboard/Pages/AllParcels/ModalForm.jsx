@@ -28,10 +28,10 @@ const ModalForm = ({ deliveryMens, parcelId, refetch }) => {
       );
       if (res.data.modifiedCount) {
         toast.success("Delivery Men Assigned!");
-        refetch();
       } else {
         toast.error("Something went wrong!");
       }
+      refetch();
     } catch (err) {
       console.error(err);
     }

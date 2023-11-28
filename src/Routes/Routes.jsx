@@ -11,6 +11,7 @@ import MyParcels from "../Components/Pages/Dashboard/Pages/MyParcels/MyParcels";
 import UpdateParcel from "../Components/Pages/Dashboard/Pages/UpdateParcel/UpdateParcel";
 import AdminHome from "../Components/Pages/Dashboard/Pages/AdminHome/AdminHome";
 import AllParcels from "../Components/Pages/Dashboard/Pages/AllParcels/AllParcels";
+import AllDeliveryMen from "../Components/Pages/Dashboard/Pages/AllDeliveryMen/AllDeliveryMen";
 
 const Routes = createBrowserRouter([
   {
@@ -53,6 +54,14 @@ const Routes = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AllParcels />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "allDeliveryMen",
+        element: (
+          <PrivateRoute>
+            <AllDeliveryMen />
           </PrivateRoute>
         ),
       },
