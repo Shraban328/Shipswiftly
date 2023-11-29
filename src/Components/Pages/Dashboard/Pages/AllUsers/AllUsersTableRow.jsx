@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { Box, Modal } from "@mui/material";
 import UserRoleUpdateModal from "./UserRoleUpdateModal";
-const AllUsersTableRow = ({ user, idx, parcels }) => {
+const AllUsersTableRow = ({ user, idx, parcels, refetch }) => {
   const style = {
     position: "absolute",
     top: "50%",
@@ -33,7 +33,7 @@ const AllUsersTableRow = ({ user, idx, parcels }) => {
       <td>{userParcels.length}</td>
       <td>
         <p onClick={handleOpen}>
-          <DefaultButton text={"Update User Role"} bgColor={"#1874C1"} />
+          <DefaultButton text={"Update Role"} bgColor={"#1874C1"} />
         </p>
         <Modal
           open={open}
@@ -42,7 +42,11 @@ const AllUsersTableRow = ({ user, idx, parcels }) => {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <UserRoleUpdateModal />
+            <UserRoleUpdateModal
+              userId={user._id}
+              handleClose={handleClose}
+              refetch={refetch}
+            />
           </Box>
         </Modal>
       </td>
@@ -54,4 +58,6 @@ export default AllUsersTableRow;
 AllUsersTableRow.propTypes = {
   user: PropTypes.objectOf(PropTypes.any).isRequired,
   idx: PropTypes.number,
+  parcels: PropTypes.array,
+  refetch: PropTypes.func,
 };
