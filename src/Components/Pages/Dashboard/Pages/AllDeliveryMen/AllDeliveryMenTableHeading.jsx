@@ -3,7 +3,6 @@ const AllDeliveryMenTableHeading = () => {
     <thead>
       <tr>
         <th></th>
-        <th></th>
         <th>Name</th>
         <th>Phone Number</th>
         <th>Parcel Delivered</th>
