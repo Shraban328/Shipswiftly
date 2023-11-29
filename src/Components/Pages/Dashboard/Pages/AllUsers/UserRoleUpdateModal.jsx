@@ -32,6 +32,30 @@ const UserRoleUpdateModal = ({ userId, handleClose, refetch }) => {
       console.error(err);
     }
   };
+  const handleMakeAdmin = async () => {
+    handleClose();
+    try {
+      console.log(userId);
+      Swal.fire({
+        title: "Are you sure?",
+        text: "This User Will Be Changed To Admin!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Confirm!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const res = await axiosSecure.patch(`/userType/makeAdmin/${userId}`);
+          console.log(res.data);
+          refetch();
+          toast.success("SuccessFully Converted To Admin");
+        }
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div className="border rounded-lg p-9 bg-base-300">
@@ -40,7 +64,7 @@ const UserRoleUpdateModal = ({ userId, handleClose, refetch }) => {
         <p onClick={handleMakeDeliveryMen}>
           <DefaultButton text={"Make Delivery Men"} bgColor={"#1874C1"} />
         </p>
-        <p>
+        <p onClick={handleMakeAdmin}>
           <DefaultButton text={"Make Admin"} bgColor={"#1874C1"} />
         </p>
       </div>
