@@ -59,6 +59,7 @@ const AllParcelsTableRow = ({ parcel, idx, deliveryMens, refetch }) => {
               deliveryMens={deliveryMens}
               parcelId={parcel._id}
               refetch={refetch}
+              handleClose={handleClose}
             />
           </Box>
         </Modal>

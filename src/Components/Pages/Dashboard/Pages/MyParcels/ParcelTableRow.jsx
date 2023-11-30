@@ -8,9 +8,19 @@ const ParcelTableRow = ({ parcel, idx }) => {
       <td className="uppercase">{parcel.parcelType}</td>
       <td>{parcel.deliveryDate}</td>
       <td>{parcel.approximateDeliveryDate || "pending"}</td>
-      <td>{parcel.deliveryManId || "pending"}</td>
+      <td>{parcel.deliveryMenId || "Not Assigned"}</td>
       <td>
-        <p className={`${parcel.status == "cancel" ? "text-rose-500" : ""}`}>
+        <p
+          style={{
+            color: `${
+              (parcel?.status === "pending" && "#eab308") ||
+              (parcel?.status === "cancel" && "#f43f5e") ||
+              (parcel?.status === "on the way" && "#22c55e") ||
+              (parcel?.status === "delivered" && "#3b82f6") ||
+              (parcel?.status === "returned" && "#6b7280")
+            }`,
+          }}
+        >
           {parcel.status == "cancel" ? "canceled" : parcel.status}
         </p>
       </td>
@@ -20,7 +30,14 @@ const ParcelTableRow = ({ parcel, idx }) => {
         </Link>
       </td>
       <td>
-        <DefaultButton text={"Review"} bgColor={"#ecb500"} />
+        <Link
+          to={
+            parcel.status !== "pending" &&
+            `/dashboard/review/${parcel.deliveryMenId}`
+          }
+        >
+          <DefaultButton text={"Review"} bgColor={"#ecb500"} />
+        </Link>
       </td>
       <td>
         <DefaultButton text={"Pay"} bgColor={"#d83a00"} />
