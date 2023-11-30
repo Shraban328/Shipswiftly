@@ -5,14 +5,41 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../../Hooks/useAxiosSecure";
 const DeliveryListTableRow = ({ parcel, idx }) => {
   const axiosSecure = useAxiosSecure();
-  // <th>Sender Name</th>
-  // <th>Receivers Name</th>
-  // <th>PhoneNumber</th>
-  // <th>Requested Delivery Date</th>
-  // <th>Approximate Delivery Date</th>
-  // <th>Receivers Phone Number</th>
-  // <th>Action</th>
-  // <th>Action</th>
+
+  const handleDelivery = async () => {
+    console.log("clicked");
+    try {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Press Done if the delivery is successful!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Done",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const updatedStatus = {
+            id: parcel._id,
+            status: "delivered",
+          };
+          const res = await axiosSecure.patch(
+            "/parcels/parcelDelivery",
+            updatedStatus
+          );
+          console.log(res.data);
+          Swal.fire(
+            "Congratulations!",
+            "You Have Successfully Delivered The Parcel.",
+            "success"
+          );
+        }
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const handleCancelDelivery = async () => {
     console.log("clicked");
     try {
@@ -48,24 +75,50 @@ const DeliveryListTableRow = ({ parcel, idx }) => {
       <th>{idx + 1}</th>
       <td className="uppercase">{parcel?.name}</td>
       <td>{parcel.receiversName}</td>
+      <td>{parcel.phoneNumber}</td>
       <td>{parcel.deliveryDate || "N/A"}</td>
       <td>{parcel.approximateDeliveryDate || "pending"}</td>
       <td>{parcel.receiversPhoneNumber || "N/A"}</td>
-      <td>
-        <Link to={`/dashboard/updateParcel/${parcel._id}`}>
-          <DefaultButton text={"Deliver"} bgColor={"#1874C1"} />
-        </Link>
-      </td>
+
       {parcel?.status === "cancel" ? (
-        <td onClick={handleCancelDelivery} className="cursor-pointer">
-          <button className="btn btn-error text-base-100" disabled>
-            Canceled
-          </button>
-        </td>
+        <>
+          <td className="cursor-pointer">
+            <button className="btn btn-error text-[#f43f5e]" disabled>
+              deliver
+            </button>
+          </td>
+          <td className="cursor-pointer">
+            <button className="btn btn-error text-[#f43f5e]" disabled>
+              Canceled
+            </button>
+          </td>
+        </>
       ) : (
-        <td onClick={handleCancelDelivery}>
-          <DefaultButton text={"Cancel"} bgColor={"#ecb500"} />
-        </td>
+        <>
+          {parcel?.status === "delivered" ? (
+            <>
+              <td className="cursor-pointer">
+                <button className="btn btn-error text-[#f43f5e]" disabled>
+                  delivered
+                </button>
+              </td>
+              <td className="cursor-pointer">
+                <button className="btn btn-error text-[#f43f5e]" disabled>
+                  N/A
+                </button>
+              </td>
+            </>
+          ) : (
+            <>
+              <td onClick={handleDelivery}>
+                <DefaultButton text={"Deliver"} bgColor={"#1874C1"} />
+              </td>
+              <td onClick={handleCancelDelivery}>
+                <DefaultButton text={"Cancel"} bgColor={"#ecb500"} />
+              </td>
+            </>
+          )}
+        </>
       )}
     </tr>
   );

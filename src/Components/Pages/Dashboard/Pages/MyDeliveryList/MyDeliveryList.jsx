@@ -4,8 +4,6 @@ import HeadingTitle from "../../../../Shared/HeadingTitle";
 import DeliveryListTableHeading from "./DeliveryListTableHeading";
 import DeliveryListTableRow from "./DeliveryListTableRow";
 import useGetUser from "../../../../../Hooks/useGetUser";
-import { useEffect, useState } from "react";
-import useAllParcels from "../../../../../Hooks/useAllParcels";
 
 const MyDeliveryList = () => {
   const [userDetails] = useGetUser();
@@ -20,7 +18,7 @@ const MyDeliveryList = () => {
   });
   console.log(parcels?.length);
   return (
-    <div className="overflow-x-auto bg-base-200 ml-9 mt-9">
+    <div className="overflow-x-auto bg-base-200 ml-1 mt-9">
       <div className="flex items-center justify-evenly mt-5">
         <HeadingTitle title={"Delivery List"} />
       </div>
