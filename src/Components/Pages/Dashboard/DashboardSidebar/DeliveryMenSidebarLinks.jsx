@@ -1,9 +1,21 @@
 import { NavLink } from "react-router-dom";
 import { MdOutlineDeliveryDining } from "react-icons/md";
 import { TbStars } from "react-icons/tb";
+import { FaUserCircle } from "react-icons/fa";
 const DeliveryMenSidebarLinks = () => {
   return (
     <ul className="menu">
+      <li className="text-lg font-medium">
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? " bg-[#474747] " : "inactive"
+          }
+          to={"/dashboard/myProfile"}
+        >
+          <FaUserCircle className="text-2xl" />
+          Profile
+        </NavLink>
+      </li>
       <li className="text-lg font-medium">
         <NavLink
           className={({ isActive }) =>

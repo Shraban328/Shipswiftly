@@ -3,15 +3,14 @@ import UserSidebarLinks from "./UserSidebarLinks";
 import { CiLogout } from "react-icons/ci";
 import DeliveryMenSidebarLinks from "./DeliveryMenSidebarLinks";
 import AdminSidebarLinks from "./AdminSidebarLinks";
+import useGetUser from "../../../../Hooks/useGetUser";
 const DashboardSidebar = () => {
-  const user = false;
-  const deliverymen = false;
-  const admin = true;
+  const [userDetails] = useGetUser();
   return (
     <div className="bg-[#1874C1] h-[50vh] rounded-lg text-white p-3 relative">
-      {user && <UserSidebarLinks />}
-      {deliverymen && <DeliveryMenSidebarLinks />}
-      {admin && <AdminSidebarLinks />}
+      {userDetails?.type === "user" && <UserSidebarLinks />}
+      {userDetails?.type === "deliverymen" && <DeliveryMenSidebarLinks />}
+      {userDetails?.type === "admin" && <AdminSidebarLinks />}
       <Link
         to={"/"}
         className="flex items-center flex-row-reverse absolute bottom-5 right-8 hover:cursor-pointer"

@@ -4,6 +4,7 @@ import { useState } from "react";
 import useAxiosPublic from "../../../../../Hooks/useAxiosPublic";
 import HeadingTitle from "../../../../Shared/HeadingTitle";
 import moment from "moment";
+import toast from "react-hot-toast";
 
 const BookParcel = () => {
   const { user } = useAuth();
@@ -42,6 +43,7 @@ const BookParcel = () => {
       };
       const res = await axiosPublic.post("/parcels", parcelInfo);
       console.log(res.data);
+      toast.success("Parcel Submitted Successfully!");
     } catch (err) {
       console.error(err);
     }

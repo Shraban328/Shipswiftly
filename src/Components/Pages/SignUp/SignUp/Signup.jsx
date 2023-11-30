@@ -27,11 +27,12 @@ const Signup = () => {
         photoURL: data.image,
       });
       const userInfo = {
-        email: data.email,
+        email: data.email.toLowerCase(),
         name: data.name,
         image: data.image,
         type: data.type,
       };
+      console.log("new deliverymen info,", userInfo);
       const axiosRes = await axiosPublic.post("/users", userInfo);
       console.log(axiosRes.data);
 

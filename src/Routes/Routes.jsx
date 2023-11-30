@@ -13,6 +13,7 @@ import AdminHome from "../Components/Pages/Dashboard/Pages/AdminHome/AdminHome";
 import AllParcels from "../Components/Pages/Dashboard/Pages/AllParcels/AllParcels";
 import AllDeliveryMen from "../Components/Pages/Dashboard/Pages/AllDeliveryMen/AllDeliveryMen";
 import AllUsers from "../Components/Pages/Dashboard/Pages/AllUsers/AllUsers";
+import MyDeliveryList from "../Components/Pages/Dashboard/Pages/MyDeliveryList/MyDeliveryList";
 
 const Routes = createBrowserRouter([
   {
@@ -104,6 +105,15 @@ const Routes = createBrowserRouter([
         element: (
           <PrivateRoute>
             <UpdateParcel />
+          </PrivateRoute>
+        ),
+      },
+      // delivery men routes
+      {
+        path: "deliveryList",
+        element: (
+          <PrivateRoute>
+            <MyDeliveryList />
           </PrivateRoute>
         ),
       },

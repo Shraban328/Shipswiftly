@@ -7,7 +7,7 @@ const ParcelTableRow = ({ parcel, idx }) => {
       <th>{idx + 1}</th>
       <td className="uppercase">{parcel.parcelType}</td>
       <td>{parcel.deliveryDate}</td>
-      <td>{parcel.approximateDeiveryDate || "pending"}</td>
+      <td>{parcel.approximateDeliveryDate || "pending"}</td>
       <td>{parcel.deliveryManId || "pending"}</td>
       <td>
         <p className={`${parcel.status == "cancel" ? "text-rose-500" : ""}`}>
