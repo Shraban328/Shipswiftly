@@ -4,16 +4,16 @@ import useAuth from "../../Hooks/useAuth";
 import useGetUser from "../../Hooks/useGetUser";
 const Navbar = () => {
   const { user, userLogout } = useAuth();
-  const [myUser] = useGetUser();
+  const [userDetails] = useGetUser();
   const handleLogout = () => {
     userLogout();
   };
   const navLinks = (
-    <div className="font-semibold flex  xl:flex-row md:w-52 space-x-3 text-white text-lg">
+    <div className="font-semibold  flex flex-col md:flex-row   xl:flex-row md:w-52 space-x-3 text-white text-lg">
       <li>
         <NavLink
           className={({ isActive }) =>
-            isActive ? "text-yellow-400" : "inactive"
+            isActive ? "text-yellow-400" : "text-[#474747]"
           }
           to={"/"}
         >
@@ -23,17 +23,17 @@ const Navbar = () => {
       <li>
         <NavLink
           className={({ isActive }) =>
-            isActive ? "text-yellow-500" : "inactive"
+            isActive ? "text-yellow-500" : "text-[#474747]"
           }
-          to={"/dashboard/myProfile"}
+          to={"/none"}
         >
-          Dashboard
+          Jobs
         </NavLink>
       </li>
       <li>
         <NavLink
           className={({ isActive }) =>
-            isActive ? "text-yellow-500" : "inactive"
+            isActive ? "text-yellow-500" : "text-[#474747]"
           }
           to={"/about-us"}
         >
@@ -70,7 +70,7 @@ const Navbar = () => {
               {navLinks}
             </ul>
           </div>
-          <div className="flex items-center">
+          <div className="flex flex-row items-center">
             <img src={logo} alt="" className="w-14" />
             <a className="btn text-white btn-ghost normal-case md:text-lg xl:text-xl font-bold mr-3">
               ShipSwiftly
@@ -87,7 +87,7 @@ const Navbar = () => {
                 <label tabIndex={0} className="m-1">
                   <div className="">
                     <img
-                      src={myUser?.image}
+                      src={userDetails?.image}
                       className="rounded-full w-16 h-16 hover:cursor-pointer border-[3px] border-white"
                     />
                   </div>

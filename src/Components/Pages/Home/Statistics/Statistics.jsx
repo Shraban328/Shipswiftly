@@ -28,8 +28,8 @@ const Statistics = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-3 max-w-screen-xl mx-auto my-8">
-      <div className="card w-96 bg-base-100 my-16 rounded-none border-r-2">
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 max-w-screen-xl mx-auto my-8">
+      <div className="card max-w-[1280px]  bg-base-100 my-16 rounded-none border-r-2">
         <div className="card-body flex-row gap-6">
           <BiPackage className="text-[70px]" />
           <div>
@@ -45,7 +45,7 @@ const Statistics = () => {
           </div>
         </div>
       </div>
-      <div className="card w-96 bg-base-100 my-16 rounded-none border-r-2">
+      <div className="card max-w-[1280px]  bg-base-100 my-16 rounded-none border-r-2">
         <div className="card-body flex-row gap-6">
           <LuPackageCheck className="text-[70px]" />
           <div>
@@ -61,7 +61,7 @@ const Statistics = () => {
           </div>
         </div>
       </div>
-      <div className="card w-96 bg-base-100 my-16 rounded-none ">
+      <div className="card max-w-[1280px]  bg-base-100 my-16 rounded-none ">
         <div className="card-body flex-row gap-6">
           <FaUsers className="text-[70px]" />
           <div>

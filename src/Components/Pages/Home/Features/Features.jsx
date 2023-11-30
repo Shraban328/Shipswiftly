@@ -9,7 +9,7 @@ const Features = () => {
       .then((data) => setFeatures(data));
   }, []);
   return (
-    <div className="grid grid-cols-3 gap-0 max-w-screen-xl mx-auto my-14">
+    <div className="grid md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-7 max-w-screen-xl mx-auto my-14">
       {features.map((feature) => (
         <FeatureCard key={feature.id} feature={feature} />
       ))}
